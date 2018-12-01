@@ -10,6 +10,8 @@ namespace BusinessTourHack
 {
     public class AOBScan
     {
+        private byte[] BytePage;
+
         //protected uint ProcessID;
         public AOBScan(/*uint ProcessID*/)
         {
@@ -48,33 +50,58 @@ namespace BusinessTourHack
                 Addy = new IntPtr(MemInfo.BaseAddress.ToInt32() + (int)MemInfo.RegionSize);
             }
         }
-        protected IntPtr Scan(byte[] sIn, byte[] sFor)
+        
+
+        private bool CheckPattern(byte[] BytePattern, string strMask, int nOffset)
         {
-            int[] sBytes = new int[256]; int Pool = 0;
-            int End = sFor.Length - 1;
-            for (int i = 0; i < 256; i++)
-                sBytes[i] = sFor.Length;
-            for (int i = 0; i < End; i++)
-                sBytes[sFor[i]] = End - i;
-            while (Pool <= sIn.Length - sFor.Length)
+            // Loop the pattern and compare to the mask and dump. 
+            for (int x = 0; x < BytePattern.Length; x++)
             {
-                for (int i = End; sIn[Pool + i] == sFor[i]; i--)
-                    if (i == 0) return new IntPtr(Pool);
-                Pool += sBytes[sIn[Pool + End]];
+                // If the mask char is a wildcard, just continue. 
+                if (strMask[x] == '?')
+                    continue;
+
+                // If the mask char is not a wildcard, ensure a match is made in the pattern. 
+                if ((strMask[x] == 'x') && (BytePattern[x] != this.BytePage[nOffset + x]))
+                    return false;
+            }
+
+            // The loop was successful so we found the pattern. 
+            return true;
+        }
+        
+        protected IntPtr Scan(byte[] BytesPattern, string Mask)
+        {
+            for(int i = 0; i < (this.BytePage.Length - BytesPattern.Length); i++)
+            {
+                if(this.BytePage[i] == BytesPattern[0])
+                {
+                    if(CheckPattern(BytesPattern, Mask, i))
+                    {
+                        return new IntPtr(i);
+                    }
+                }
             }
             return IntPtr.Zero;
         }
+
         public IntPtr AobScan(byte[] Pattern, string Mask)
         {
+            if (Pattern.Length != Mask.Length)
+            {
+                MessageBox.Show("The mask doesn't match the pattern", "Error");
+                return IntPtr.Zero;
+            }
+
             Process Game = Process.GetProcessesByName("BusinessTour")[0];
             if (Game.Id == 0) return IntPtr.Zero;
             MemoryRegion = new List<MEMORY_BASIC_INFORMATION>();
             MemInfo(Game.Handle);
             for (int i = 0; i < MemoryRegion.Count; i++)
             {
-                byte[] buff = new byte[MemoryRegion[i].RegionSize];
-                ReadProcessMemory(Game.Handle, MemoryRegion[i].BaseAddress, buff, MemoryRegion[i].RegionSize, 0);
-                IntPtr Result = Scan(buff, Pattern);
+                this.BytePage = new byte[MemoryRegion[i].RegionSize];
+                ReadProcessMemory(Game.Handle, MemoryRegion[i].BaseAddress, this.BytePage, MemoryRegion[i].RegionSize, 0);
+                IntPtr Result = Scan(Pattern, Mask);
                 if (Result != IntPtr.Zero)
                 {
                     return new IntPtr(MemoryRegion[i].BaseAddress.ToInt32() + Result.ToInt32());

@@ -32,8 +32,8 @@ namespace BusinessTourHack
                 return;
             }
 
-            string MoneyMask = "";
-            byte[] MoneyBytes = new byte[] { 0x00, 0xFF, 0xA4, 0XFF };
+            string MoneyMask = "xxxx????xxxx????????xxxxxxxx?xxx?xxxxxxxxxxxxxxx";
+            byte[] MoneyBytes = new byte[] { 0x00, 0x00, 0x00, 0x00, 0xFF, 0xFF, 0xFF, 0xFF, 0x1C, 0xC8, 0x06, 0x00, 0x9C, 0x4C, 0x18, 0x00, 0x80, 0x84, 0x1E, 0x00, 0x01, 0x00, 0x00, 0x00, 0x1C, 0xC8, 0x06, 0x00, 0x1C, 0xC8, 0x06, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x1C, 0xC8, 0x06, 0x00, 0x1D, 0xC8, 0x06, 0x00 };
 
             AOBScan scanner = new AOBScan();
             IntPtr MoneyAddress = scanner.AobScan(MoneyBytes, MoneyMask);
@@ -43,7 +43,7 @@ namespace BusinessTourHack
 
             //Memory.WriteInteger((int)MoneyAddress + 0x10, (int)this.MoneyAmount.Value, 8); //Writing a 4 byte integer
             //Memory.WriteInteger((int)MoneyAddress + 0x0C, (int)this.MoneyAmount.Value ^ 444444, 8); //Writing a 4 byte integer
-            txtStatus.Text = MoneyAddress.ToString();
+            txtStatus.Text = MoneyAddress.ToString("X");
         }
 
         private void Form1_Load(object sender, EventArgs e)
