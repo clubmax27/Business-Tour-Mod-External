@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace BusinessTourHack
 {
-    public class MemoryTwo
+    public class Memory
     {
         /////////////////////
         /////DLL Imports/////

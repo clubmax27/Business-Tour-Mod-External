@@ -35,6 +35,7 @@
             this.MoneyAmount = new System.Windows.Forms.NumericUpDown();
             this.AboutButton = new System.Windows.Forms.Button();
             this.txtStatus = new System.Windows.Forms.TextBox();
+            this.AobScan = new System.ComponentModel.BackgroundWorker();
             ((System.ComponentModel.ISupportInitialize)(this.MoneyTrackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.MoneyAmount)).BeginInit();
             this.SuspendLayout();
@@ -52,11 +53,9 @@
             // MoneyTrackBar
             // 
             this.MoneyTrackBar.Location = new System.Drawing.Point(12, 93);
-            this.MoneyTrackBar.Minimum = 1;
             this.MoneyTrackBar.Name = "MoneyTrackBar";
             this.MoneyTrackBar.Size = new System.Drawing.Size(217, 45);
             this.MoneyTrackBar.TabIndex = 1;
-            this.MoneyTrackBar.Value = 1;
             this.MoneyTrackBar.Scroll += new System.EventHandler(this.trackBar1_Scroll);
             // 
             // PlayersListBox
@@ -81,6 +80,7 @@
             this.MoneyRemove.TabIndex = 3;
             this.MoneyRemove.Text = "Remove Money";
             this.MoneyRemove.UseVisualStyleBackColor = true;
+            this.MoneyRemove.Click += new System.EventHandler(this.MoneyRemove_Click);
             // 
             // MoneyAmount
             // 
@@ -121,6 +121,11 @@
             this.txtStatus.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtStatus.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
             // 
+            // AobScan
+            // 
+            this.AobScan.WorkerReportsProgress = true;
+            this.AobScan.DoWork += new System.ComponentModel.DoWorkEventHandler(this.AobScan_DoWork);
+            // 
             // BusinessTourHack
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -153,6 +158,7 @@
         private System.Windows.Forms.NumericUpDown MoneyAmount;
         private System.Windows.Forms.Button AboutButton;
         private System.Windows.Forms.TextBox txtStatus;
+        private System.ComponentModel.BackgroundWorker AobScan;
     }
 }
 
