@@ -19,6 +19,37 @@ namespace BusinessTourHack
 
         public BusinessTourHack()
         {
+            int BaseAddress = 0;
+
+            var targetProcess = Process.GetProcessesByName("BusinessTour").FirstOrDefault();
+            if (targetProcess == null)
+            {
+                SetStatusText("Can't find Business Tour, please open the game");
+                MoneyAddress = IntPtr.Zero;
+                return;
+            }
+            ProcessModuleCollection modules = targetProcess.Modules;
+
+            foreach (ProcessModule procmodule in modules)
+            {
+                if ("steam_api.dll" == procmodule.ModuleName)
+                {
+                    BaseAddress = (int)procmodule.BaseAddress;
+                }
+            }
+            
+            byte[] SteamID1 = Memory.ReadByte(BaseAddress + 214456, 4);
+            byte[] SteamID2 = Memory.ReadByte(BaseAddress + 214456 + 4, 4);
+
+            List<byte> list1 = new List<byte>(SteamID1);
+            List<byte> list2 = new List<byte>(SteamID2);
+            list1.AddRange(list2);
+
+            byte[] TempSteamID = list1.ToArray();
+            long SteamID = BitConverter.ToInt64(TempSteamID, 0);
+
+            MessageBox.Show(SteamID.ToString());
+
             InitializeComponent();
         }
 
