@@ -28,17 +28,26 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.txtStatus = new System.Windows.Forms.TextBox();
             this.MoneyAdd = new System.Windows.Forms.Button();
             this.MoneyTrackBar = new System.Windows.Forms.TrackBar();
             this.PlayersListBox = new System.Windows.Forms.ListBox();
             this.MoneyRemove = new System.Windows.Forms.Button();
             this.MoneyAmount = new System.Windows.Forms.NumericUpDown();
             this.AboutButton = new System.Windows.Forms.Button();
-            this.txtStatus = new System.Windows.Forms.TextBox();
             this.AobScan = new System.ComponentModel.BackgroundWorker();
             ((System.ComponentModel.ISupportInitialize)(this.MoneyTrackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.MoneyAmount)).BeginInit();
             this.SuspendLayout();
+            // 
+            // txtStatus
+            // 
+            this.txtStatus.Location = new System.Drawing.Point(13, 5);
+            this.txtStatus.Name = "txtStatus";
+            this.txtStatus.Size = new System.Drawing.Size(217, 20);
+            this.txtStatus.TabIndex = 7;
+            this.txtStatus.Text = "Hack status...";
+            this.txtStatus.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // MoneyAdd
             // 
@@ -53,9 +62,11 @@
             // MoneyTrackBar
             // 
             this.MoneyTrackBar.Location = new System.Drawing.Point(12, 93);
+            this.MoneyTrackBar.Minimum = 1;
             this.MoneyTrackBar.Name = "MoneyTrackBar";
             this.MoneyTrackBar.Size = new System.Drawing.Size(217, 45);
             this.MoneyTrackBar.TabIndex = 1;
+            this.MoneyTrackBar.Value = 1;
             this.MoneyTrackBar.Scroll += new System.EventHandler(this.trackBar1_Scroll);
             // 
             // PlayersListBox
@@ -98,7 +109,6 @@
             this.MoneyAmount.Name = "MoneyAmount";
             this.MoneyAmount.Size = new System.Drawing.Size(107, 20);
             this.MoneyAmount.TabIndex = 4;
-            this.MoneyAmount.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged);
             // 
             // AboutButton
             // 
@@ -110,20 +120,8 @@
             this.AboutButton.UseVisualStyleBackColor = true;
             this.AboutButton.Click += new System.EventHandler(this.AboutButton_Click);
             // 
-            // txtStatus
-            // 
-            this.txtStatus.Enabled = false;
-            this.txtStatus.Location = new System.Drawing.Point(13, 5);
-            this.txtStatus.Name = "txtStatus";
-            this.txtStatus.Size = new System.Drawing.Size(217, 20);
-            this.txtStatus.TabIndex = 7;
-            this.txtStatus.Text = "Hack status...";
-            this.txtStatus.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtStatus.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
-            // 
             // AobScan
             // 
-            this.AobScan.WorkerReportsProgress = true;
             this.AobScan.DoWork += new System.ComponentModel.DoWorkEventHandler(this.AobScan_DoWork);
             // 
             // BusinessTourHack
@@ -157,8 +155,8 @@
         private System.Windows.Forms.Button MoneyRemove;
         private System.Windows.Forms.NumericUpDown MoneyAmount;
         private System.Windows.Forms.Button AboutButton;
-        private System.Windows.Forms.TextBox txtStatus;
         private System.ComponentModel.BackgroundWorker AobScan;
+        private System.Windows.Forms.TextBox txtStatus;
     }
 }
 

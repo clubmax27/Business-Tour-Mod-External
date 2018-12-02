@@ -12,3 +12,17 @@ C:\Users\Namor is bae\source\repos\WindowsFormsApp1\bin\Debug\Memory.dll
 C:\Users\Namor is bae\source\repos\WindowsFormsApp1\bin\Debug\ProcessMemoryScanner.dll
 C:\Users\Namor is bae\source\repos\WindowsFormsApp1\bin\Debug\Memory.xml
 C:\Users\Namor is bae\source\repos\WindowsFormsApp1\obj\Debug\BusinessTourHack.csproj.CopyComplete
+C:\Users\Namor is bae\Desktop\Business-Tour-Mod-External-master\bin\Debug\WindowsFormsApp1.exe.config
+C:\Users\Namor is bae\Desktop\Business-Tour-Mod-External-master\bin\Debug\WindowsFormsApp1.exe
+C:\Users\Namor is bae\Desktop\Business-Tour-Mod-External-master\bin\Debug\WindowsFormsApp1.pdb
+C:\Users\Namor is bae\Desktop\Business-Tour-Mod-External-master\bin\Debug\Memory.dll
+C:\Users\Namor is bae\Desktop\Business-Tour-Mod-External-master\bin\Debug\ProcessMemoryScanner.dll
+C:\Users\Namor is bae\Desktop\Business-Tour-Mod-External-master\bin\Debug\Memory.xml
+C:\Users\Namor is bae\Desktop\Business-Tour-Mod-External-master\obj\Debug\BusinessTourHack.csprojAssemblyReference.cache
+C:\Users\Namor is bae\Desktop\Business-Tour-Mod-External-master\obj\Debug\BusinessTourHack.BusinessTourHack.resources
+C:\Users\Namor is bae\Desktop\Business-Tour-Mod-External-master\obj\Debug\WindowsFormsApp1.Properties.Resources.resources
+C:\Users\Namor is bae\Desktop\Business-Tour-Mod-External-master\obj\Debug\BusinessTourHack.csproj.GenerateResource.cache
+C:\Users\Namor is bae\Desktop\Business-Tour-Mod-External-master\obj\Debug\BusinessTourHack.csproj.CoreCompileInputs.cache
+C:\Users\Namor is bae\Desktop\Business-Tour-Mod-External-master\obj\Debug\BusinessTourHack.csproj.CopyComplete
+C:\Users\Namor is bae\Desktop\Business-Tour-Mod-External-master\obj\Debug\WindowsFormsApp1.exe
+C:\Users\Namor is bae\Desktop\Business-Tour-Mod-External-master\obj\Debug\WindowsFormsApp1.pdb

@@ -22,11 +22,6 @@ namespace BusinessTourHack
             InitializeComponent();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            AobScan.RunWorkerAsync();
-        }
-
         private void button1_Click(object sender, EventArgs e)
         {
             int MoneyWanted = (Memory.ReadInteger((int)MoneyAddress + 0x10, 4)) + ((int)this.MoneyAmount.Value);
@@ -34,11 +29,9 @@ namespace BusinessTourHack
             Memory.WriteInteger((int)MoneyAddress + 0x0C, MoneyWanted ^ 444444, 4); //Writing a 4 byte integer
         }
 
-        private void MoneyRemove_Click(object sender, EventArgs e)
+        private void Form1_Load(object sender, EventArgs e)
         {
-            int MoneyWanted = (Memory.ReadInteger((int)MoneyAddress + 0x10, 4)) - ((int)this.MoneyAmount.Value);
-            Memory.WriteInteger((int)MoneyAddress + 0x10, MoneyWanted, 4); //Writing a 4 byte integer
-            Memory.WriteInteger((int)MoneyAddress + 0x0C, MoneyWanted ^ 444444, 4); //Writing a 4 byte integer
+            AobScan.RunWorkerAsync();
         }
 
         private void trackBar1_Scroll(object sender, EventArgs e)
@@ -46,10 +39,6 @@ namespace BusinessTourHack
             int ScrollValue = this.MoneyTrackBar.Value;
             switch (ScrollValue)
             {
-                case 0:
-                    this.MoneyAmount.Value = 0;
-                    break;
-
                 case 1:
                     this.MoneyAmount.Value = 25000;
                     break;
@@ -101,24 +90,14 @@ namespace BusinessTourHack
 
         }
 
-        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void AboutButton_Click(object sender, EventArgs e)
         {
             MessageBox.Show("This software was made by Gayben#7736 \nSpecial thanks to Spyder#3252 for helping me manipluating the memory", "About this software", MessageBoxButtons.OK);
         }
 
-        private void textBox2_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void AobScan_DoWork(object sender, DoWorkEventArgs e)
         {
-            while(true)
+            while (true)
             {
                 System.Threading.Thread.Sleep(1000);
                 var targetProcess = Process.GetProcessesByName("BusinessTour").FirstOrDefault();
@@ -159,6 +138,13 @@ namespace BusinessTourHack
             {
                 this.txtStatus.Text = text;
             }
+        }
+
+        private void MoneyRemove_Click(object sender, EventArgs e)
+        {
+            int MoneyWanted = (Memory.ReadInteger((int)MoneyAddress + 0x10, 4)) - ((int)this.MoneyAmount.Value);
+            Memory.WriteInteger((int)MoneyAddress + 0x10, MoneyWanted, 4); //Writing a 4 byte integer
+            Memory.WriteInteger((int)MoneyAddress + 0x0C, MoneyWanted ^ 444444, 4); //Writing a 4 byte integer
         }
     }
 }
