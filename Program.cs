@@ -70,6 +70,7 @@ namespace BusinessTourHack
                 MessageBox.Show("You aren't allowed to use this software, if you think this is an error, contact Gayben#7736");
                 return;
             }
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new BusinessTourHack());

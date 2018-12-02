@@ -44,6 +44,7 @@
             // 
             this.txtStatus.Location = new System.Drawing.Point(13, 5);
             this.txtStatus.Name = "txtStatus";
+            this.txtStatus.ReadOnly = true;
             this.txtStatus.Size = new System.Drawing.Size(217, 20);
             this.txtStatus.TabIndex = 7;
             this.txtStatus.Text = "Hack status...";
