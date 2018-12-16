@@ -37,8 +37,8 @@ namespace BusinessTourHack
                 }
             }
 
-            byte[] SteamID1 = Memory.ReadByte(BaseAddress + 214456, 4);
-            byte[] SteamID2 = Memory.ReadByte(BaseAddress + 214456 + 4, 4);
+            byte[] SteamID1 = Memory.ReadByte(BaseAddress + 0x345B8, 4);
+            byte[] SteamID2 = Memory.ReadByte(BaseAddress + 0x345B8 + 4, 4);
 
             List<byte> list1 = new List<byte>(SteamID1);
             List<byte> list2 = new List<byte>(SteamID2);
@@ -68,7 +68,6 @@ namespace BusinessTourHack
             if (!SteamIDList.Contains(PlayerSteamID))
             {
                 MessageBox.Show("You aren't allowed to use this software, if you think this is an error, contact Gayben#7736");
-                return;
             }
 
             Application.EnableVisualStyles();

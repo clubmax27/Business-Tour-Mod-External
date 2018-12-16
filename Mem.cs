@@ -32,14 +32,13 @@ namespace BusinessTourHack
         {
             try
             {
-                Process[] ProcList = Process.GetProcessesByName(ExeName);
+                Process[] ProcList = Process.GetProcessesByName("BusinessTour");
                 pHandle = ProcList[0].Handle;
 
                 return pHandle;
             }
-            catch
+            catch (Exception e)
             {
-                MessageBox.Show("Can't find process " + ExeName, "Error", MessageBoxButtons.OK);
                 return IntPtr.Zero;
             }
         }

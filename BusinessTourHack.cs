@@ -12,29 +12,59 @@ using Memory;
 using System.IO;
 using System.Net;
 using System.Security.Cryptography;
+using System.Runtime.InteropServices;
 
 namespace BusinessTourHack
 {
+
     public partial class BusinessTourHack : Form
     {
+        [DllImport("kernel32.dll")]
+        private static extern Int32 ReadProcessMemory(IntPtr Handle, int Address, byte[] buffer, int Size, int BytesRead = 0);
+
         public static string ExeName = "BusinessTour";
-        private IntPtr MoneyAddress = IntPtr.Zero;
+        private int MoneyAddress = 0;
+        private int BaseAddress = 0;
+        private int EncryptingKey = 0;
 
         public BusinessTourHack()
         {
+
+            var targetProcess = Process.GetProcessesByName("BusinessTour").FirstOrDefault();
+            if (targetProcess == null)
+            {
+                MessageBox.Show("Can't find Business Tour, please open the game");
+                return;
+            }
+            ProcessModuleCollection modules = targetProcess.Modules;
+
+            foreach (ProcessModule procmodule in modules)
+            {
+                if ("GameAssembly.dll" == procmodule.ModuleName)
+                {
+                    this.BaseAddress = (int)procmodule.BaseAddress;
+                }
+            }
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void MoneyAdd_Click(object sender, EventArgs e)
         {
-            int MoneyWanted = (Memory.ReadInteger((int)MoneyAddress + 0x10, 4)) + ((int)this.MoneyAmount.Value);
-            Memory.WriteInteger((int)MoneyAddress + 0x10, MoneyWanted, 4); //Writing a 4 byte integer
-            Memory.WriteInteger((int)MoneyAddress + 0x0C, MoneyWanted ^ 444444, 4); //Writing a 4 byte integer
+            int MoneyWanted = (Memory.ReadInteger(this.MoneyAddress, 4)) + ((int)this.MoneyAmount.Value);
+            Memory.WriteInteger(this.MoneyAddress, MoneyWanted, 4); //Writing a 4 byte integer
+            Memory.WriteInteger(this.MoneyAddress - 4, MoneyWanted ^ this.EncryptingKey, 4); //Writing a 4 byte integer
+        }
+
+        private void MoneyRemove_Click(object sender, EventArgs e)
+        {
+            int MoneyWanted = (Memory.ReadInteger(this.MoneyAddress, 4)) - ((int)this.MoneyAmount.Value);
+            Memory.WriteInteger(this.MoneyAddress, MoneyWanted, 4); //Writing a 4 byte integer
+            Memory.WriteInteger(this.MoneyAddress - 4, MoneyWanted ^ this.EncryptingKey, 4); //Writing a 4 byte integer
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            AobScan.RunWorkerAsync();
+            UpdateAddress.RunWorkerAsync();
         }
 
         private void trackBar1_Scroll(object sender, EventArgs e)
@@ -80,7 +110,7 @@ namespace BusinessTourHack
 
                 case 10:
                     this.MoneyAmount.Value = 20000000;
-                    break;           
+                    break;
 
                 default:
                     this.MoneyAmount.Value = 0;
@@ -98,36 +128,6 @@ namespace BusinessTourHack
             MessageBox.Show("This software was made by Gayben#7736 \nSpecial thanks to Spyder#3252 for helping me manipluating the memory", "About this software", MessageBoxButtons.OK);
         }
 
-        private void AobScan_DoWork(object sender, DoWorkEventArgs e)
-        {
-            while (true)
-            {
-                System.Threading.Thread.Sleep(1000);
-                var targetProcess = Process.GetProcessesByName("BusinessTour").FirstOrDefault();
-                if (targetProcess == null)
-                {
-                    SetStatusText("Can't find Business Tour, please open the game");
-                    MoneyAddress = IntPtr.Zero;
-                    continue;
-                }
-
-                string MoneyMask = "xxxx????xxxx????????xxxxxxxx?xxx?xxxxxxxxxxxxxxx";
-                byte[] MoneyBytes = new byte[] { 0x00, 0x00, 0x00, 0x00, 0xFF, 0xFF, 0xFF, 0xFF, 0x1C, 0xC8, 0x06, 0x00, 0x9C, 0x4C, 0x18, 0x00, 0x80, 0x84, 0x1E, 0x00, 0x01, 0x00, 0x00, 0x00, 0x1C, 0xC8, 0x06, 0x00, 0x1C, 0xC8, 0x06, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x1C, 0xC8, 0x06, 0x00, 0x1D, 0xC8, 0x06, 0x00 };
-
-                AOBScan scanner = new AOBScan();
-                MoneyAddress = scanner.AobScan(MoneyBytes, MoneyMask);
-
-                if (MoneyAddress != IntPtr.Zero)
-                {
-                    SetStatusText("Trainer ready : " + MoneyAddress.ToString("X"));
-                }
-                else
-                {
-                    SetStatusText("Can't find addresses, please join a game");
-                }
-            }
-        }
-
         delegate void SetTextCallback(string text);
 
         private void SetStatusText(string text)
@@ -143,11 +143,23 @@ namespace BusinessTourHack
             }
         }
 
-        private void MoneyRemove_Click(object sender, EventArgs e)
+        private void UpdateAddress_DoWork(object sender, DoWorkEventArgs e)
         {
-            int MoneyWanted = (Memory.ReadInteger((int)MoneyAddress + 0x10, 4)) - ((int)this.MoneyAmount.Value);
-            Memory.WriteInteger((int)MoneyAddress + 0x10, MoneyWanted, 4); //Writing a 4 byte integer
-            Memory.WriteInteger((int)MoneyAddress + 0x0C, MoneyWanted ^ 444444, 4); //Writing a 4 byte integer
+            while (true)
+            {
+                int pointer = Memory.GetPointerAddress(BaseAddress + 0x0119187C, new int[] { 0x60, 0x54 });
+                int Money = Memory.ReadInteger(pointer, 4);
+                int EncryptedMoney = Memory.ReadInteger(pointer - 4, 4);
+                int EncryptingKey = Memory.ReadInteger(pointer - 8, 4);
+                int BooleanTrue = Memory.ReadInteger(pointer + 4, 4);
+
+                if((Money ^ EncryptingKey) == EncryptedMoney && BooleanTrue == 1)
+                {
+                    this.MoneyAddress = pointer;
+                    this.EncryptingKey = EncryptingKey;
+                    SetStatusText(pointer.ToString("X"));
+                }
+            }
         }
     }
 }
