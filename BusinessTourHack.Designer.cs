@@ -74,10 +74,10 @@
             // 
             this.PlayersListBox.FormattingEnabled = true;
             this.PlayersListBox.Items.AddRange(new object[] {
-            "Player 1",
-            "Player 2",
-            "Player 3",
-            "Player 4"});
+            "Bottom Right Player ",
+            "Bottom Left Player",
+            "Top Left Player",
+            "Top Right Player"});
             this.PlayersListBox.Location = new System.Drawing.Point(14, 31);
             this.PlayersListBox.Name = "PlayersListBox";
             this.PlayersListBox.Size = new System.Drawing.Size(216, 56);

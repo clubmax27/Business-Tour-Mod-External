@@ -40,3 +40,17 @@ C:\Users\Namor is bae\Desktop\code\Github Desktop\Business-Tour-Mod-External\bin
 C:\Users\Namor is bae\Desktop\code\Github Desktop\Business-Tour-Mod-External\obj\Debug\BusinessTourHack.Properties.Resources.resources
 C:\Users\Namor is bae\Desktop\code\Github Desktop\Business-Tour-Mod-External\obj\Debug\BusinessTourHack.exe
 C:\Users\Namor is bae\Desktop\code\Github Desktop\Business-Tour-Mod-External\obj\Debug\BusinessTourHack.pdb
+C:\Users\Namor is bae\Desktop\Business-Tour-Mod-External-2.0\bin\Debug\BusinessTourHack.exe.config
+C:\Users\Namor is bae\Desktop\Business-Tour-Mod-External-2.0\bin\Debug\BusinessTourHack.exe
+C:\Users\Namor is bae\Desktop\Business-Tour-Mod-External-2.0\bin\Debug\BusinessTourHack.pdb
+C:\Users\Namor is bae\Desktop\Business-Tour-Mod-External-2.0\bin\Debug\Memory.dll
+C:\Users\Namor is bae\Desktop\Business-Tour-Mod-External-2.0\bin\Debug\ProcessMemoryScanner.dll
+C:\Users\Namor is bae\Desktop\Business-Tour-Mod-External-2.0\bin\Debug\Memory.xml
+C:\Users\Namor is bae\Desktop\Business-Tour-Mod-External-2.0\obj\Debug\BusinessTourHack.csprojAssemblyReference.cache
+C:\Users\Namor is bae\Desktop\Business-Tour-Mod-External-2.0\obj\Debug\BusinessTourHack.BusinessTourHack.resources
+C:\Users\Namor is bae\Desktop\Business-Tour-Mod-External-2.0\obj\Debug\BusinessTourHack.Properties.Resources.resources
+C:\Users\Namor is bae\Desktop\Business-Tour-Mod-External-2.0\obj\Debug\BusinessTourHack.csproj.GenerateResource.cache
+C:\Users\Namor is bae\Desktop\Business-Tour-Mod-External-2.0\obj\Debug\BusinessTourHack.csproj.CoreCompileInputs.cache
+C:\Users\Namor is bae\Desktop\Business-Tour-Mod-External-2.0\obj\Debug\BusinessTourHack.csproj.CopyComplete
+C:\Users\Namor is bae\Desktop\Business-Tour-Mod-External-2.0\obj\Debug\BusinessTourHack.exe
+C:\Users\Namor is bae\Desktop\Business-Tour-Mod-External-2.0\obj\Debug\BusinessTourHack.pdb

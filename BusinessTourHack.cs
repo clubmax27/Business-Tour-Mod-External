@@ -26,6 +26,7 @@ namespace BusinessTourHack
         private int MoneyAddress = 0;
         private int BaseAddress = 0;
         private int EncryptingKey = 0;
+        private int PlayerSelected = 0;
 
         public BusinessTourHack()
         {
@@ -50,16 +51,18 @@ namespace BusinessTourHack
 
         private void MoneyAdd_Click(object sender, EventArgs e)
         {
-            int MoneyWanted = (Memory.ReadInteger(this.MoneyAddress, 4)) + ((int)this.MoneyAmount.Value);
-            Memory.WriteInteger(this.MoneyAddress, MoneyWanted, 4); //Writing a 4 byte integer
-            Memory.WriteInteger(this.MoneyAddress - 4, MoneyWanted ^ this.EncryptingKey, 4); //Writing a 4 byte integer
+            int AddressModificatior = 168 * PlayerSelected;
+            int MoneyWanted = (Memory.ReadInteger(this.MoneyAddress - AddressModificatior, 4)) + ((int)this.MoneyAmount.Value);
+            Memory.WriteInteger(this.MoneyAddress - AddressModificatior, MoneyWanted, 4); //Writing a 4 byte integer
+            Memory.WriteInteger(this.MoneyAddress - AddressModificatior - 4, MoneyWanted ^ this.EncryptingKey, 4); //Writing a 4 byte integer
         }
 
         private void MoneyRemove_Click(object sender, EventArgs e)
         {
-            int MoneyWanted = (Memory.ReadInteger(this.MoneyAddress, 4)) - ((int)this.MoneyAmount.Value);
-            Memory.WriteInteger(this.MoneyAddress, MoneyWanted, 4); //Writing a 4 byte integer
-            Memory.WriteInteger(this.MoneyAddress - 4, MoneyWanted ^ this.EncryptingKey, 4); //Writing a 4 byte integer
+            int AddressModificatior = 168 * PlayerSelected;
+            int MoneyWanted = (Memory.ReadInteger(this.MoneyAddress - AddressModificatior, 4)) - ((int)this.MoneyAmount.Value);
+            Memory.WriteInteger(this.MoneyAddress - AddressModificatior, MoneyWanted, 4); //Writing a 4 byte integer
+            Memory.WriteInteger(this.MoneyAddress - AddressModificatior - 4, MoneyWanted ^ this.EncryptingKey, 4); //Writing a 4 byte integer
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -120,7 +123,7 @@ namespace BusinessTourHack
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            PlayerSelected = PlayersListBox.SelectedIndex;
         }
 
         private void AboutButton_Click(object sender, EventArgs e)

@@ -68,6 +68,7 @@ namespace BusinessTourHack
             if (!SteamIDList.Contains(PlayerSteamID))
             {
                 MessageBox.Show("You aren't allowed to use this software, if you think this is an error, contact Gayben#7736");
+                return;
             }
 
             Application.EnableVisualStyles();
