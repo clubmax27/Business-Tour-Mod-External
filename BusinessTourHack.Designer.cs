@@ -36,6 +36,10 @@
             this.MoneyAmount = new System.Windows.Forms.NumericUpDown();
             this.AboutButton = new System.Windows.Forms.Button();
             this.UpdateAddress = new System.ComponentModel.BackgroundWorker();
+            this.FreePair = new System.Windows.Forms.CheckBox();
+            this.FreeDouble = new System.Windows.Forms.CheckBox();
+            this.FreeCard = new System.Windows.Forms.CheckBox();
+            this.FreeReroll = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.MoneyTrackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.MoneyAmount)).BeginInit();
             this.SuspendLayout();
@@ -125,11 +129,59 @@
             // 
             this.UpdateAddress.DoWork += new System.ComponentModel.DoWorkEventHandler(this.UpdateAddress_DoWork);
             // 
+            // FreePair
+            // 
+            this.FreePair.AutoSize = true;
+            this.FreePair.Location = new System.Drawing.Point(248, 13);
+            this.FreePair.Name = "FreePair";
+            this.FreePair.Size = new System.Drawing.Size(131, 17);
+            this.FreePair.TabIndex = 8;
+            this.FreePair.Text = "Free Pair/Even Bonus";
+            this.FreePair.UseVisualStyleBackColor = true;
+            this.FreePair.CheckedChanged += new System.EventHandler(this.FreePair_CheckedChanged);
+            // 
+            // FreeDouble
+            // 
+            this.FreeDouble.AutoSize = true;
+            this.FreeDouble.Location = new System.Drawing.Point(248, 36);
+            this.FreeDouble.Name = "FreeDouble";
+            this.FreeDouble.Size = new System.Drawing.Size(117, 17);
+            this.FreeDouble.TabIndex = 9;
+            this.FreeDouble.Text = "Free Double Bonus";
+            this.FreeDouble.UseVisualStyleBackColor = true;
+            this.FreeDouble.CheckedChanged += new System.EventHandler(this.FreeDouble_CheckedChanged);
+            // 
+            // FreeCard
+            // 
+            this.FreeCard.AutoSize = true;
+            this.FreeCard.Location = new System.Drawing.Point(248, 59);
+            this.FreeCard.Name = "FreeCard";
+            this.FreeCard.Size = new System.Drawing.Size(105, 17);
+            this.FreeCard.TabIndex = 10;
+            this.FreeCard.Text = "Free Card Bonus";
+            this.FreeCard.UseVisualStyleBackColor = true;
+            this.FreeCard.CheckedChanged += new System.EventHandler(this.FreeCard_CheckedChanged);
+            // 
+            // FreeReroll
+            // 
+            this.FreeReroll.AutoSize = true;
+            this.FreeReroll.Location = new System.Drawing.Point(248, 82);
+            this.FreeReroll.Name = "FreeReroll";
+            this.FreeReroll.Size = new System.Drawing.Size(110, 17);
+            this.FreeReroll.TabIndex = 11;
+            this.FreeReroll.Text = "Free Reroll Bonus";
+            this.FreeReroll.UseVisualStyleBackColor = true;
+            this.FreeReroll.CheckedChanged += new System.EventHandler(this.FreeReroll_CheckedChanged);
+            // 
             // BusinessTourHack
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(242, 223);
+            this.ClientSize = new System.Drawing.Size(412, 223);
+            this.Controls.Add(this.FreeReroll);
+            this.Controls.Add(this.FreeCard);
+            this.Controls.Add(this.FreeDouble);
+            this.Controls.Add(this.FreePair);
             this.Controls.Add(this.txtStatus);
             this.Controls.Add(this.AboutButton);
             this.Controls.Add(this.MoneyAmount);
@@ -158,6 +210,10 @@
         private System.Windows.Forms.Button AboutButton;
         private System.Windows.Forms.TextBox txtStatus;
         private System.ComponentModel.BackgroundWorker UpdateAddress;
+        private System.Windows.Forms.CheckBox FreePair;
+        private System.Windows.Forms.CheckBox FreeDouble;
+        private System.Windows.Forms.CheckBox FreeCard;
+        private System.Windows.Forms.CheckBox FreeReroll;
     }
 }
 

@@ -21,7 +21,7 @@ namespace BusinessTourHack
     {
         [DllImport("kernel32.dll")]
         private static extern Int32 ReadProcessMemory(IntPtr Handle, int Address, byte[] buffer, int Size, int BytesRead = 0);
-
+        public static int OBSCURED_OBJECT_SIZE = 16;
         public static string ExeName = "BusinessTour";
         private int MoneyAddress = 0;
         private int BaseAddress = 0;
@@ -150,6 +150,7 @@ namespace BusinessTourHack
         {
             while (true)
             {
+                System.Threading.Thread.Sleep(1000);
                 int pointer = Memory.GetPointerAddress(BaseAddress + 0x0119187C, new int[] { 0x60, 0x54 });
                 int Money = Memory.ReadInteger(pointer, 4);
                 int EncryptedMoney = Memory.ReadInteger(pointer - 4, 4);
@@ -161,6 +162,102 @@ namespace BusinessTourHack
                     this.MoneyAddress = pointer;
                     this.EncryptingKey = EncryptingKey;
                     SetStatusText(pointer.ToString("X"));
+                }
+            }
+        }
+
+        private void FreePair_CheckedChanged(object sender, EventArgs e)
+        {
+            int pointer = Memory.GetPointerAddress(BaseAddress + 0x0115F228, new int[] { 0x20, 0x40, 0x20, 0x5C, 0x0 });
+            pointer += OBSCURED_OBJECT_SIZE * 7;
+            int EncryptingKey = Memory.ReadInteger(pointer, 4);
+            int EncryptedBonus = Memory.ReadInteger(pointer + 4, 4);
+            int Bonus = Memory.ReadInteger(pointer + 8, 4);
+            int BooleanTrue = Memory.ReadInteger(pointer + 12, 4);
+
+            if ((Bonus ^ EncryptingKey) == EncryptedBonus && BooleanTrue == 1)
+            {
+                if(FreePair.Checked)
+                {
+                    Memory.WriteInteger(pointer + 8, 0, 4); //Writing a 4 byte integer
+                    Memory.WriteInteger(pointer + 4, 0 ^ EncryptingKey, 4); //Writing a 4 byte integer
+                }
+                else
+                {
+                    Memory.WriteInteger(pointer + 8, 2, 4); //Writing a 4 byte integer
+                    Memory.WriteInteger(pointer + 4, 2 ^ EncryptingKey, 4); //Writing a 4 byte integer
+                }
+            }
+        }
+
+        private void FreeDouble_CheckedChanged(object sender, EventArgs e)
+        {
+            int pointer = Memory.GetPointerAddress(BaseAddress + 0x0115F228, new int[] { 0x20, 0x40, 0x20, 0x5C, 0x0 });
+            pointer += OBSCURED_OBJECT_SIZE * 8;
+            int EncryptingKey = Memory.ReadInteger(pointer, 4);
+            int EncryptedBonus = Memory.ReadInteger(pointer + 4, 4);
+            int Bonus = Memory.ReadInteger(pointer + 8, 4);
+            int BooleanTrue = Memory.ReadInteger(pointer + 12, 4);
+
+            if ((Bonus ^ EncryptingKey) == EncryptedBonus && BooleanTrue == 1)
+            {
+                if (FreePair.Checked)
+                {
+                    Memory.WriteInteger(pointer + 8, 0, 4); //Writing a 4 byte integer
+                    Memory.WriteInteger(pointer + 4, 0 ^ EncryptingKey, 4); //Writing a 4 byte integer
+                }
+                else
+                {
+                    Memory.WriteInteger(pointer + 8, 2, 4); //Writing a 4 byte integer
+                    Memory.WriteInteger(pointer + 4, 2 ^ EncryptingKey, 4); //Writing a 4 byte integer
+                }
+            }
+        }
+
+        private void FreeCard_CheckedChanged(object sender, EventArgs e)
+        {
+            int pointer = Memory.GetPointerAddress(BaseAddress + 0x0115F228, new int[] { 0x20, 0x40, 0x20, 0x5C, 0x0 });
+            pointer += OBSCURED_OBJECT_SIZE * 9;
+            int EncryptingKey = Memory.ReadInteger(pointer, 4);
+            int EncryptedBonus = Memory.ReadInteger(pointer + 4, 4);
+            int Bonus = Memory.ReadInteger(pointer + 8, 4);
+            int BooleanTrue = Memory.ReadInteger(pointer + 12, 4);
+
+            if ((Bonus ^ EncryptingKey) == EncryptedBonus && BooleanTrue == 1)
+            {
+                if (FreePair.Checked)
+                {
+                    Memory.WriteInteger(pointer + 8, 0, 4); //Writing a 4 byte integer
+                    Memory.WriteInteger(pointer + 4, 0 ^ EncryptingKey, 4); //Writing a 4 byte integer
+                }
+                else
+                {
+                    Memory.WriteInteger(pointer + 8, 2, 4); //Writing a 4 byte integer
+                    Memory.WriteInteger(pointer + 4, 2 ^ EncryptingKey, 4); //Writing a 4 byte integer
+                }
+            }
+        }
+
+        private void FreeReroll_CheckedChanged(object sender, EventArgs e)
+        {
+            int pointer = Memory.GetPointerAddress(BaseAddress + 0x0115F228, new int[] { 0x20, 0x40, 0x20, 0x5C, 0x0 });
+            pointer += OBSCURED_OBJECT_SIZE * 10;
+            int EncryptingKey = Memory.ReadInteger(pointer, 4);
+            int EncryptedBonus = Memory.ReadInteger(pointer + 4, 4);
+            int Bonus = Memory.ReadInteger(pointer + 8, 4);
+            int BooleanTrue = Memory.ReadInteger(pointer + 12, 4);
+
+            if ((Bonus ^ EncryptingKey) == EncryptedBonus && BooleanTrue == 1)
+            {
+                if (FreePair.Checked)
+                {
+                    Memory.WriteInteger(pointer + 8, 0, 4); //Writing a 4 byte integer
+                    Memory.WriteInteger(pointer + 4, 0 ^ EncryptingKey, 4); //Writing a 4 byte integer
+                }
+                else
+                {
+                    Memory.WriteInteger(pointer + 8, 3, 4); //Writing a 4 byte integer
+                    Memory.WriteInteger(pointer + 4, 3 ^ EncryptingKey, 4); //Writing a 4 byte integer
                 }
             }
         }

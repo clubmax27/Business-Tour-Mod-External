@@ -11,8 +11,9 @@ using System.Security.Cryptography;
 
 namespace BusinessTourHack
 {
-    static class Program
+    class Program
     {
+
         /// <summary>
         /// Point d'entrée principal de l'application.
         /// </summary>
