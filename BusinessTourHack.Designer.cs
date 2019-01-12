@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BusinessTourHack));
             this.txtStatus = new System.Windows.Forms.TextBox();
             this.MoneyAdd = new System.Windows.Forms.Button();
             this.MoneyTrackBar = new System.Windows.Forms.TrackBar();
@@ -40,6 +41,11 @@
             this.FreeDouble = new System.Windows.Forms.CheckBox();
             this.FreeCard = new System.Windows.Forms.CheckBox();
             this.FreeReroll = new System.Windows.Forms.CheckBox();
+            this.CheckDebugger = new System.ComponentModel.BackgroundWorker();
+            this.UpdateValues = new System.ComponentModel.BackgroundWorker();
+            this.NotFirstTurn = new System.Windows.Forms.Button();
+            this.InfiniteJail = new System.Windows.Forms.Button();
+            this.UpdateColor = new System.ComponentModel.BackgroundWorker();
             ((System.ComponentModel.ISupportInitialize)(this.MoneyTrackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.MoneyAmount)).BeginInit();
             this.SuspendLayout();
@@ -86,7 +92,6 @@
             this.PlayersListBox.Name = "PlayersListBox";
             this.PlayersListBox.Size = new System.Drawing.Size(216, 56);
             this.PlayersListBox.TabIndex = 2;
-            this.PlayersListBox.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
             // 
             // MoneyRemove
             // 
@@ -138,7 +143,6 @@
             this.FreePair.TabIndex = 8;
             this.FreePair.Text = "Free Pair/Even Bonus";
             this.FreePair.UseVisualStyleBackColor = true;
-            this.FreePair.CheckedChanged += new System.EventHandler(this.FreePair_CheckedChanged);
             // 
             // FreeDouble
             // 
@@ -149,7 +153,6 @@
             this.FreeDouble.TabIndex = 9;
             this.FreeDouble.Text = "Free Double Bonus";
             this.FreeDouble.UseVisualStyleBackColor = true;
-            this.FreeDouble.CheckedChanged += new System.EventHandler(this.FreeDouble_CheckedChanged);
             // 
             // FreeCard
             // 
@@ -160,7 +163,6 @@
             this.FreeCard.TabIndex = 10;
             this.FreeCard.Text = "Free Card Bonus";
             this.FreeCard.UseVisualStyleBackColor = true;
-            this.FreeCard.CheckedChanged += new System.EventHandler(this.FreeCard_CheckedChanged);
             // 
             // FreeReroll
             // 
@@ -171,13 +173,46 @@
             this.FreeReroll.TabIndex = 11;
             this.FreeReroll.Text = "Free Reroll Bonus";
             this.FreeReroll.UseVisualStyleBackColor = true;
-            this.FreeReroll.CheckedChanged += new System.EventHandler(this.FreeReroll_CheckedChanged);
+            // 
+            // CheckDebugger
+            // 
+            this.CheckDebugger.DoWork += new System.ComponentModel.DoWorkEventHandler(this.CheckDebugger_DoWork);
+            // 
+            // UpdateValues
+            // 
+            this.UpdateValues.DoWork += new System.ComponentModel.DoWorkEventHandler(this.UpdateValues_DoWork);
+            // 
+            // NotFirstTurn
+            // 
+            this.NotFirstTurn.Location = new System.Drawing.Point(248, 115);
+            this.NotFirstTurn.Name = "NotFirstTurn";
+            this.NotFirstTurn.Size = new System.Drawing.Size(152, 23);
+            this.NotFirstTurn.TabIndex = 12;
+            this.NotFirstTurn.Text = "Building Level 3 Houses";
+            this.NotFirstTurn.UseVisualStyleBackColor = true;
+            this.NotFirstTurn.Click += new System.EventHandler(this.NotFirstTurn_Click);
+            // 
+            // InfiniteJail
+            // 
+            this.InfiniteJail.Location = new System.Drawing.Point(248, 145);
+            this.InfiniteJail.Name = "InfiniteJail";
+            this.InfiniteJail.Size = new System.Drawing.Size(152, 23);
+            this.InfiniteJail.TabIndex = 13;
+            this.InfiniteJail.Text = "Infinite Jail Selected Player";
+            this.InfiniteJail.UseVisualStyleBackColor = true;
+            this.InfiniteJail.Click += new System.EventHandler(this.InfiniteJail_Click);
+            // 
+            // UpdateColor
+            // 
+            this.UpdateColor.DoWork += new System.ComponentModel.DoWorkEventHandler(this.UpdateColor_DoWork);
             // 
             // BusinessTourHack
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(412, 223);
+            this.Controls.Add(this.InfiniteJail);
+            this.Controls.Add(this.NotFirstTurn);
             this.Controls.Add(this.FreeReroll);
             this.Controls.Add(this.FreeCard);
             this.Controls.Add(this.FreeDouble);
@@ -190,6 +225,7 @@
             this.Controls.Add(this.MoneyTrackBar);
             this.Controls.Add(this.MoneyAdd);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "BusinessTourHack";
             this.Text = "Business Tour Hack";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -214,6 +250,11 @@
         private System.Windows.Forms.CheckBox FreeDouble;
         private System.Windows.Forms.CheckBox FreeCard;
         private System.Windows.Forms.CheckBox FreeReroll;
+        private System.ComponentModel.BackgroundWorker CheckDebugger;
+        private System.ComponentModel.BackgroundWorker UpdateValues;
+        private System.Windows.Forms.Button NotFirstTurn;
+        private System.Windows.Forms.Button InfiniteJail;
+        private System.ComponentModel.BackgroundWorker UpdateColor;
     }
 }
 
