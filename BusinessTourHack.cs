@@ -1,49 +1,35 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
-using Memory;
-using System.IO;
-using System.Net;
-using System.Security.Cryptography;
-using System.Runtime.InteropServices;
 
 namespace BusinessTourHack
 {
-
     public partial class BusinessTourHack : Form
     {
-        [DllImport("kernel32.dll")]
-        private static extern Int32 ReadProcessMemory(IntPtr Handle, int Address, byte[] buffer, int Size, int BytesRead = 0);
-
-        public static int OBSCURED_OBJECT_SIZE = 16;
-        public static string ExeName = "BusinessTour";
-        private int MoneyAddress = 0;
-        private int BaseAddress = 0;
-        private int EncryptingKey = 0;
-        private bool[] JailedPlayer = new bool[4];
+        private const int OBSCURED_OBJECT_SIZE = 16;
+        private readonly int _BaseAddress;
+        private int _BonusAddress;
+        private int _MoneyAddress;
+        private int _MoneyEncryptingKey;
+        private readonly bool[] _JailedPlayer = new bool[4];
 
         public BusinessTourHack()
         {
-            var targetProcess = Process.GetProcessesByName("BusinessTour").FirstOrDefault();
-            if (targetProcess == null)
+            Process TargetProcess = Process.GetProcessesByName("BusinessTour").FirstOrDefault();
+            if (TargetProcess == null)
             {
-                MessageBox.Show("Can't find Business Tour, please open the game");
+                MessageBox.Show(@"Can't find Business Tour, please open the game");
                 return;
             }
-            ProcessModuleCollection modules = targetProcess.Modules;
+            ProcessModuleCollection Modules = TargetProcess.Modules;
 
-            foreach (ProcessModule procmodule in modules)
+            foreach (ProcessModule Procmodule in Modules)
             {
-                if ("GameAssembly.dll" == procmodule.ModuleName)
+                if ("GameAssembly.dll" == Procmodule.ModuleName)
                 {
-                    this.BaseAddress = (int)procmodule.BaseAddress;
+                    _BaseAddress = (int)Procmodule.BaseAddress;
                 }
             }
             InitializeComponent();
@@ -52,26 +38,26 @@ namespace BusinessTourHack
         private void MoneyAdd_Click(object sender, EventArgs e)
         {
             int AddressModificatior = 168 * PlayersListBox.SelectedIndex;
-            int MoneyWanted = (Memory.ReadInteger(this.MoneyAddress - AddressModificatior, 4)) + ((int)this.MoneyAmount.Value);
-            Memory.WriteInteger(this.MoneyAddress - AddressModificatior, MoneyWanted, 4); //Writing a 4 byte integer
-            Memory.WriteInteger(this.MoneyAddress - AddressModificatior - 4, MoneyWanted ^ this.EncryptingKey, 4); //Writing a 4 byte integer
+            int MoneyWanted = (Memory.ReadInteger(_MoneyAddress - AddressModificatior, 4)) + ((int)MoneyAmount.Value);
+            Memory.WriteInteger(_MoneyAddress - AddressModificatior, MoneyWanted, 4); //Writing a 4 byte integer
+            Memory.WriteInteger(_MoneyAddress - AddressModificatior - 4, MoneyWanted ^ _MoneyEncryptingKey, 4); //Writing a 4 byte integer
         }
 
         private void MoneyRemove_Click(object sender, EventArgs e)
         {
             int AddressModificatior = 168 * PlayersListBox.SelectedIndex;
-            int MoneyWanted = (Memory.ReadInteger(this.MoneyAddress - AddressModificatior, 4)) - ((int)this.MoneyAmount.Value);
+            int MoneyWanted = (Memory.ReadInteger(_MoneyAddress - AddressModificatior, 4)) - ((int)MoneyAmount.Value);
             if(MoneyWanted < 0)
             {
                 MoneyWanted = 0;
             }
-            Memory.WriteInteger(this.MoneyAddress - AddressModificatior, MoneyWanted, 4); //Writing a 4 byte integer
-            Memory.WriteInteger(this.MoneyAddress - AddressModificatior - 4, MoneyWanted ^ this.EncryptingKey, 4); //Writing a 4 byte integer
+            Memory.WriteInteger(_MoneyAddress - AddressModificatior, MoneyWanted, 4); //Writing a 4 byte integer
+            Memory.WriteInteger(_MoneyAddress - AddressModificatior - 4, MoneyWanted ^ _MoneyEncryptingKey, 4); //Writing a 4 byte integer
         }
 
         private void InfiniteJail_Click(object sender, EventArgs e)
         {
-           JailedPlayer[PlayersListBox.SelectedIndex] = !JailedPlayer[PlayersListBox.SelectedIndex];
+           _JailedPlayer[PlayersListBox.SelectedIndex] = !_JailedPlayer[PlayersListBox.SelectedIndex];
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -84,77 +70,78 @@ namespace BusinessTourHack
 
         private void trackBar1_Scroll(object sender, EventArgs e)
         {
-            int ScrollValue = this.MoneyTrackBar.Value;
+            int ScrollValue = MoneyTrackBar.Value;
             switch (ScrollValue)
             {
                 case 1:
-                    this.MoneyAmount.Value = 25000;
+                    MoneyAmount.Value = 25000;
                     break;
 
                 case 2:
-                    this.MoneyAmount.Value = 50000;
+                    MoneyAmount.Value = 50000;
                     break;
 
                 case 3:
-                    this.MoneyAmount.Value = 100000;
+                    MoneyAmount.Value = 100000;
                     break;
 
                 case 4:
-                    this.MoneyAmount.Value = 250000;
+                    MoneyAmount.Value = 250000;
                     break;
 
                 case 5:
-                    this.MoneyAmount.Value = 500000;
+                    MoneyAmount.Value = 500000;
                     break;
 
                 case 6:
-                    this.MoneyAmount.Value = 1000000;
+                    MoneyAmount.Value = 1000000;
                     break;
 
                 case 7:
-                    this.MoneyAmount.Value = 2500000;
+                    MoneyAmount.Value = 2500000;
                     break;
 
                 case 8:
-                    this.MoneyAmount.Value = 5000000;
+                    MoneyAmount.Value = 5000000;
                     break;
 
                 case 9:
-                    this.MoneyAmount.Value = 10000000;
+                    MoneyAmount.Value = 10000000;
                     break;
 
                 case 10:
-                    this.MoneyAmount.Value = 20000000;
+                    MoneyAmount.Value = 20000000;
                     break;
 
                 default:
-                    this.MoneyAmount.Value = 0;
+                    MoneyAmount.Value = 0;
                     break;
             }
         }
 
         private void AboutButton_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("This software was made by Gayben#7736 \nSpecial thanks to Spyder#3252 for helping me manipluating the memory", "About this software", MessageBoxButtons.OK);
+            MessageBox.Show(@"This software was made by Gayben#7736 
+Special thanks to Spyder#3252 for helping me manipulating the memory", @"About this software", MessageBoxButtons.OK);
         }
 
         private void NotFirstTurn_Click(object sender, EventArgs e)
         {
-            Memory.WriteInteger(this.MoneyAddress - 0x48, 0, 4); //Writing a 4 byte integer
+            Memory.WriteInteger(_MoneyAddress - 0x48, 0, 4); //Writing a 4 byte integer
         }
 
-        delegate void SetTextCallback(string text);
+        private delegate void SetTextCallback(string text);
 
         private void SetStatusText(string text)
         {
-            if (this.txtStatus.InvokeRequired)
+            if (txtStatus.InvokeRequired)
             {
-                SetTextCallback d = new SetTextCallback(SetStatusText);
-                this.Invoke(d, new object[] { text });
+                SetTextCallback D = SetStatusText;
+                Invoke(D, text);
             }
             else
             {
-                this.txtStatus.Text = text;
+                txtStatus.Text = text;
             }
         }
 
@@ -162,20 +149,35 @@ namespace BusinessTourHack
         {
             while (true)
             {
-                int pointer = Memory.GetPointerAddress(BaseAddress + 0x0119191C, new int[] { 0x60, 0x54 });
-                int Money = Memory.ReadInteger(pointer, 4);
-                int EncryptedMoney = Memory.ReadInteger(pointer - 4, 4);
-                int EncryptingKey = Memory.ReadInteger(pointer - 8, 4);
-                int BooleanTrue = Memory.ReadInteger(pointer + 4, 4);
-
-                if((Money ^ EncryptingKey) == EncryptedMoney && BooleanTrue == 1)
                 {
-                    this.MoneyAddress = pointer;
-                    this.EncryptingKey = EncryptingKey;
-                    SetStatusText(pointer.ToString("X"));
+                    int Pointer = Memory.GetPointerAddress(_BaseAddress + 0x0117B30C, new[] { 0x10, 0xA8, 0x10, 0x54 });
+                    int Money = Memory.ReadInteger(Pointer, 4);
+                    int EncryptedMoney = Memory.ReadInteger(Pointer - 4, 4);
+                    int EncryptingKey = Memory.ReadInteger(Pointer - 8, 4);
+                    int BooleanTrue = Memory.ReadInteger(Pointer + 4, 4);
+
+                    if((Money ^ EncryptingKey) == EncryptedMoney && BooleanTrue == 1)
+                    {
+                        _MoneyAddress = Pointer;
+                        _MoneyEncryptingKey = EncryptingKey;
+                    }
                 }
+                
+                {
+                    int Pointer = Memory.GetPointerAddress(_BaseAddress + 0x01183070, new[] { 0x24, 0x40, 0xE0, 0x5C, 0x10 });
+                    int EncryptingKey = Memory.ReadInteger(Pointer, 4);
+                    int EncryptedBonus = Memory.ReadInteger(Pointer + 4, 4);
+                    int Bonus = Memory.ReadInteger(Pointer + 8, 4);
+                    int BooleanTrue = Memory.ReadInteger(Pointer + 12, 4);
+                    if((Bonus ^ EncryptingKey) == EncryptedBonus && BooleanTrue == 1)
+                    {
+                        _BonusAddress = Pointer;
+                    }
+                }
+                
                 System.Threading.Thread.Sleep(1000);
             }
+            // ReSharper disable once FunctionNeverReturns
         }
 
         private void CheckDebugger_DoWork(object sender, DoWorkEventArgs e)
@@ -183,163 +185,158 @@ namespace BusinessTourHack
             while (true)
             {
                 string[] Processes = {"Medusa", "Relyze", "ODA", "Hiew", "decompiler", "Disassembler", "Hopper", "radare", "Debugger", "dbg", "IlSpy", "DnSpy", "Binary", "IDA", "ArtMoney", "scanmem", "GameConqueror", "Cheat", "Squalr", "iHaxGamez", "Bit Slicer", "PINCE", "GameGuardian", "Hacking"};
-
-                Process[] processlist = Process.GetProcesses();
-                foreach (Process theprocess in processlist)
+                
+                foreach (Process P in Process.GetProcesses())
                 {
-                    string name = theprocess.ProcessName.ToString().ToUpper();
-                    foreach (string HackSoftware in Processes)
+                    try
                     {
-                        if (name.Contains(HackSoftware.ToUpper()))
+                        if (P.MainWindowTitle.Length <= 0)
                         {
-                            Application.Exit();
+                            continue;
                         }
+
+                        foreach (string HackSoftware in Processes)
+                        {
+                            if (P.MainWindowTitle.ToUpper().Contains(HackSoftware.ToUpper()))
+                            {
+                                Application.Exit();
+                            }
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        // ignored
                     }
                 }
                 System.Threading.Thread.Sleep(1000);
             }
+            // ReSharper disable once FunctionNeverReturns
         }
 
         private void UpdateValues_DoWork(object sender, DoWorkEventArgs e)
         {
             while(true)
             {
-                { //FreePair
-                    int pointer = Memory.GetPointerAddress(BaseAddress + 0x0115F2AC, new int[] { 0x20, 0x40, 0x20, 0x5C, 0x0 });
-                    pointer += OBSCURED_OBJECT_SIZE * 7;
-                    int EncryptingKey = Memory.ReadInteger(pointer, 4);
-                    int EncryptedBonus = Memory.ReadInteger(pointer + 4, 4);
-                    int Bonus = Memory.ReadInteger(pointer + 8, 4);
-                    int BooleanTrue = Memory.ReadInteger(pointer + 12, 4);
-
-                    if ((Bonus ^ EncryptingKey) == EncryptedBonus && BooleanTrue == 1)
+                {
+                    if (FreePair.Checked)
                     {
-                        if (FreePair.Checked)
-                        {
-                            Memory.WriteInteger(pointer + 8, 0, 4); //Writing a 4 byte integer
-                            Memory.WriteInteger(pointer + 4, 0 ^ EncryptingKey, 4); //Writing a 4 byte integer
-                        }
-                        else
-                        {
-                            Memory.WriteInteger(pointer + 8, 2, 4); //Writing a 4 byte integer
-                            Memory.WriteInteger(pointer + 4, 2 ^ EncryptingKey, 4); //Writing a 4 byte integer
-                        }
+                        int EncryptingKey = Memory.ReadInteger(_BonusAddress + (OBSCURED_OBJECT_SIZE * 6), 4);
+                        Memory.WriteInteger(_BonusAddress + (OBSCURED_OBJECT_SIZE * 6) + 8, 0, 4); //Writing a 4 byte integer
+                        Memory.WriteInteger(_BonusAddress + (OBSCURED_OBJECT_SIZE * 6) + 4, 0 ^ EncryptingKey, 4); //Writing a 4 byte integer
+                    }
+                    else
+                    {
+                        int EncryptingKey = Memory.ReadInteger(_BonusAddress + (OBSCURED_OBJECT_SIZE * 6), 4);
+                        Memory.WriteInteger(_BonusAddress + (OBSCURED_OBJECT_SIZE * 6) + 8, 2, 4); //Writing a 4 byte integer
+                        Memory.WriteInteger(_BonusAddress + (OBSCURED_OBJECT_SIZE * 6) + 4, 2 ^ EncryptingKey, 4); //Writing a 4 byte integer
+                    }
+                }
+                
+                {
+                    if (FreeDouble.Checked)
+                    {
+                        int EncryptingKey = Memory.ReadInteger(_BonusAddress + (OBSCURED_OBJECT_SIZE * 6), 4);
+                        Memory.WriteInteger(_BonusAddress + (OBSCURED_OBJECT_SIZE * 7) + 8, 0, 4); //Writing a 4 byte integer
+                        Memory.WriteInteger(_BonusAddress + (OBSCURED_OBJECT_SIZE * 7) + 4, 0 ^ EncryptingKey, 4); //Writing a 4 byte integer
+                    }
+                    else
+                    {
+                        int EncryptingKey = Memory.ReadInteger(_BonusAddress + (OBSCURED_OBJECT_SIZE * 6), 4);
+                        Memory.WriteInteger(_BonusAddress + (OBSCURED_OBJECT_SIZE * 7) + 8, 2, 4); //Writing a 4 byte integer
+                        Memory.WriteInteger(_BonusAddress + (OBSCURED_OBJECT_SIZE * 7) + 4, 2 ^ EncryptingKey, 4); //Writing a 4 byte integer
                     }
                 }
 
                 {
-                    int pointer = Memory.GetPointerAddress(BaseAddress + 0x0115F2AC, new int[] { 0x20, 0x40, 0x20, 0x5C, 0x0 });
-                    pointer += OBSCURED_OBJECT_SIZE * 8;
-                    int EncryptingKey = Memory.ReadInteger(pointer, 4);
-                    int EncryptedBonus = Memory.ReadInteger(pointer + 4, 4);
-                    int Bonus = Memory.ReadInteger(pointer + 8, 4);
-                    int BooleanTrue = Memory.ReadInteger(pointer + 12, 4);
-
-                    if ((Bonus ^ EncryptingKey) == EncryptedBonus && BooleanTrue == 1)
+                    if (FreeCard.Checked)
                     {
-                        if (FreePair.Checked)
-                        {
-                            Memory.WriteInteger(pointer + 8, 0, 4); //Writing a 4 byte integer
-                            Memory.WriteInteger(pointer + 4, 0 ^ EncryptingKey, 4); //Writing a 4 byte integer
-                        }
-                        else
-                        {
-                            Memory.WriteInteger(pointer + 8, 2, 4); //Writing a 4 byte integer
-                            Memory.WriteInteger(pointer + 4, 2 ^ EncryptingKey, 4); //Writing a 4 byte integer
-                        }
+                        int EncryptingKey = Memory.ReadInteger(_BonusAddress + (OBSCURED_OBJECT_SIZE * 6), 4);
+                        Memory.WriteInteger(_BonusAddress + (OBSCURED_OBJECT_SIZE * 8) + 8, 0, 4); //Writing a 4 byte integer
+                        Memory.WriteInteger(_BonusAddress + (OBSCURED_OBJECT_SIZE * 8) + 4, 0 ^ EncryptingKey, 4); //Writing a 4 byte integer
+                    }
+                    else
+                    {
+                        int EncryptingKey = Memory.ReadInteger(_BonusAddress + (OBSCURED_OBJECT_SIZE * 6), 4);
+                        Memory.WriteInteger(_BonusAddress + (OBSCURED_OBJECT_SIZE * 8) + 8, 2, 4); //Writing a 4 byte integer
+                        Memory.WriteInteger(_BonusAddress + (OBSCURED_OBJECT_SIZE * 8) + 4, 2 ^ EncryptingKey, 4); //Writing a 4 byte integer
                     }
                 }
 
                 {
-                    int pointer = Memory.GetPointerAddress(BaseAddress + 0x0115F2AC, new int[] { 0x20, 0x40, 0x20, 0x5C, 0x0 });
-                    pointer += OBSCURED_OBJECT_SIZE * 9;
-                    int EncryptingKey = Memory.ReadInteger(pointer, 4);
-                    int EncryptedBonus = Memory.ReadInteger(pointer + 4, 4);
-                    int Bonus = Memory.ReadInteger(pointer + 8, 4);
-                    int BooleanTrue = Memory.ReadInteger(pointer + 12, 4);
-
-                    if ((Bonus ^ EncryptingKey) == EncryptedBonus && BooleanTrue == 1)
+                   if (FreeReroll.Checked)
                     {
-                        if (FreePair.Checked)
-                        {
-                            Memory.WriteInteger(pointer + 8, 0, 4); //Writing a 4 byte integer
-                            Memory.WriteInteger(pointer + 4, 0 ^ EncryptingKey, 4); //Writing a 4 byte integer
-                        }
-                        else
-                        {
-                            Memory.WriteInteger(pointer + 8, 2, 4); //Writing a 4 byte integer
-                            Memory.WriteInteger(pointer + 4, 2 ^ EncryptingKey, 4); //Writing a 4 byte integer
-                        }
+                        int EncryptingKey = Memory.ReadInteger(_BonusAddress + (OBSCURED_OBJECT_SIZE * 6), 4);
+                        Memory.WriteInteger(_BonusAddress + (OBSCURED_OBJECT_SIZE * 9) + 8, 0, 4); //Writing a 4 byte integer
+                        Memory.WriteInteger(_BonusAddress + (OBSCURED_OBJECT_SIZE * 9) + 4, 0 ^ EncryptingKey, 4); //Writing a 4 byte integer
+                    }
+                    else
+                    {
+                        int EncryptingKey = Memory.ReadInteger(_BonusAddress + (OBSCURED_OBJECT_SIZE * 6), 4);
+                        Memory.WriteInteger(_BonusAddress + (OBSCURED_OBJECT_SIZE * 9) + 8, 3, 4); //Writing a 4 byte integer
+                        Memory.WriteInteger(_BonusAddress + (OBSCURED_OBJECT_SIZE * 9) + 4, 3 ^ EncryptingKey, 4); //Writing a 4 byte integer
                     }
                 }
-
+                
                 {
-                    int pointer = Memory.GetPointerAddress(BaseAddress + 0x0115F2AC, new int[] { 0x20, 0x40, 0x20, 0x5C, 0x0 });
-                    pointer += OBSCURED_OBJECT_SIZE * 10;
-                    int EncryptingKey = Memory.ReadInteger(pointer, 4);
-                    int EncryptedBonus = Memory.ReadInteger(pointer + 4, 4);
-                    int Bonus = Memory.ReadInteger(pointer + 8, 4);
-                    int BooleanTrue = Memory.ReadInteger(pointer + 12, 4);
-
-                    if ((Bonus ^ EncryptingKey) == EncryptedBonus && BooleanTrue == 1)
-                    {
-                        if (FreePair.Checked)
-                        {
-                            Memory.WriteInteger(pointer + 8, 0, 4); //Writing a 4 byte integer
-                            Memory.WriteInteger(pointer + 4, 0 ^ EncryptingKey, 4); //Writing a 4 byte integer
-                        }
-                        else
-                        {
-                            Memory.WriteInteger(pointer + 8, 3, 4); //Writing a 4 byte integer
-                            Memory.WriteInteger(pointer + 4, 3 ^ EncryptingKey, 4); //Writing a 4 byte integer
-                        }
-                    }
-                }
-
-                {
-                    int pointer = Memory.GetPointerAddress(BaseAddress + 0x0115F2AC, new int[] { 0x20, 0x40, 0x20, 0x5C, 0x0 });
+                    // ReSharper disable once InconsistentNaming
                     for(int i = 0; i < 4; i++)
                     {
-                        if (JailedPlayer[i])
+                        if (_JailedPlayer[i])
                         {
                             int AddressModificatior = 168 * i;
-                            Memory.WriteInteger((this.MoneyAddress - AddressModificatior) - 20, 1000, 4); //Writing a 4 byte integerMemory.WriteInteger(this.MoneyAddress - AddressModificatior - 4, MoneyWanted ^ this.EncryptingKey, 4); //Writing a 4 byte integer
+                            Memory.WriteInteger((_MoneyAddress - AddressModificatior) - 20, 3, 4); //Writing a 4 byte integerMemory.WriteInteger(this.MoneyAddress - AddressModificatior - 4, MoneyWanted ^ this.EncryptingKey, 4); //Writing a 4 byte integer
                         }
                         else
                         {
                             int AddressModificatior = 168 * i;
-                            Memory.WriteInteger((this.MoneyAddress - AddressModificatior) - 20, -1, 4); //Writing a 4 byte integerMemory.WriteInteger(this.MoneyAddress - AddressModificatior - 4, MoneyWanted ^ this.EncryptingKey, 4); //Writing a 4 byte integer
+                            Memory.WriteInteger(_MoneyAddress - AddressModificatior - 20, -1, 4); //Writing a 4 byte integerMemory.WriteInteger(this.MoneyAddress - AddressModificatior - 4, MoneyWanted ^ this.EncryptingKey, 4); //Writing a 4 byte integer
+                        }
+
+                        if(NeverJail.Checked)
+                        {
+                            Memory.WriteInteger(_MoneyAddress - 20, -1, 4); //Writing a 4 byte integerMemory.WriteInteger(this.MoneyAddress - AddressModificatior - 4, MoneyWanted ^ this.EncryptingKey, 4); //Writing a 4 byte integer
                         }
                     }
                 }
+                System.Threading.Thread.Sleep(1000);
             }
+            // ReSharper disable once FunctionNeverReturns
         }
 
         private void UpdateColor_DoWork(object sender, DoWorkEventArgs e)
         {
-            Control.CheckForIllegalCrossThreadCalls = false;
+            CheckForIllegalCrossThreadCalls = false;
             while(true)
             {
 
+                // ReSharper disable once InconsistentNaming
                 for(int i = 0; i < 4; i++)
                 {
                     int AddressModificatior = 168 * i;
-                    int Money = (Memory.ReadInteger(this.MoneyAddress - AddressModificatior, 4));
-                    if (Money != 0)
+                    int Money = (Memory.ReadInteger(_MoneyAddress - AddressModificatior, 4));
+                    int EncryptedMoney = (Memory.ReadInteger(_MoneyAddress - AddressModificatior - 4, 4));
+                    int EncryptedKey = (Memory.ReadInteger(_MoneyAddress - AddressModificatior - 8, 4));
+                    int BoolValue = (Memory.ReadInteger(_MoneyAddress - AddressModificatior + 4, 4));
+                    
+                    if ((Money ^ EncryptedKey) == EncryptedMoney && BoolValue == 1)
                     {
-                        int colorNumber = Memory.ReadInteger((this.MoneyAddress - AddressModificatior) - 68, 4);
-                        string color = Index2Color(colorNumber);
+                        int ColorNumber = Memory.ReadInteger((_MoneyAddress - AddressModificatior) - 68, 4);
+                        string Color = Index2Color(ColorNumber);
                         if(PlayersListBox.Items.Count < i + 1)
                         {
-                            PlayersListBox.Items.Insert(i, color.ToString());
+                            PlayersListBox.Items.Insert(i, Color);
                         }
                         else
                         {
-                            if (PlayersListBox.Items[i].ToString() != color.ToString())
+                            if (PlayersListBox.Items[i].ToString() != Color)
                             {
                                 PlayersListBox.Items.RemoveAt(i);
-                                PlayersListBox.Items.Insert(i, color.ToString());
+                                PlayersListBox.Items.Insert(i, Color);
                             }
+                        }
+                        if(i == 0)
+                        {
+                            SetStatusText("The host is " + Color);
                         }
                     }
                     else
@@ -350,36 +347,30 @@ namespace BusinessTourHack
                         }
                     }
                 }
+                System.Threading.Thread.Sleep(100);
             }
+            // ReSharper disable once FunctionNeverReturns
         }
 
-        private string Index2Color(int index)
+        private static string Index2Color(int index)
         {
-            if(index == 0)
+            switch (index)
             {
-                return "Blue player";
+                case 0:
+                    return "Blue player";
+                case 1:
+                    return "Blue player";
+                case 2:
+                    return "Green player";
+                case 3:
+                    return "Red player";
+                case 4:
+                    return "Red player";
+                case 5:
+                    return "Yellow player";
+                default:
+                    return "Undefined color Player";
             }
-            if (index == 1)
-            {
-                return "Blue player";
-            }
-            if (index == 2)
-            {
-                return "Green player";
-            }
-            if (index == 3)
-            {
-                return "Red player";
-            }
-            if (index == 4)
-            {
-                return "Red player";
-            }
-            if (index == 5)
-            {
-                return "Yellow player";
-            }
-            return "Undefined color Player";
         }
     }
 }

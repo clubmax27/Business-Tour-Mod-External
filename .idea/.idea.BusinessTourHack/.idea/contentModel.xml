@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="C:\Users\Namor is bae\.Rider2018.3\system\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\Namor is bae\.Rider2018.3\system\resharper-host\local\Transient\ReSharperHost\v183\SolutionCaches\_BusinessTourHack.-774889203.00" t="ExcludeRecursive" />
+    <e p="C:\Users\Namor is bae\Desktop\code\Github Desktop\Business-Tour-Mod-External" t="IncludeRecursive">
+      <e p="App.config" t="Include" />
+      <e p="bin" t="ExcludeRecursive" />
+      <e p="BusinessTour.ico" t="Include" />
+      <e p="BusinessTourHack.cs" t="Include" />
+      <e p="BusinessTourHack.csproj" t="IncludeRecursive" />
+      <e p="BusinessTourHack.Designer.cs" t="Include" />
+      <e p="BusinessTourHack.resx" t="Include" />
+      <e p="BusinessTourHack.sln" t="IncludeFlat" />
+      <e p="flutterfox_icon_by_razorphoenix_d6wp5g6_UYg_icon.ico" t="Include" />
+      <e p="Mem.cs" t="Include" />
+      <e p="obj" t="ExcludeRecursive" />
+      <e p="packages" t="ExcludeRecursive" />
+      <e p="packages.config" t="Include" />
+      <e p="Pattern.cs" t="Include" />
+      <e p="Program.cs" t="Include" />
+      <e p="Properties" t="Include">
+        <e p="AssemblyInfo.cs" t="Include" />
+        <e p="Resources.Designer.cs" t="Include" />
+        <e p="Resources.resx" t="Include" />
+        <e p="Settings.Designer.cs" t="Include" />
+        <e p="Settings.settings" t="Include" />
+      </e>
+    </e>
+  </component>
+</project>

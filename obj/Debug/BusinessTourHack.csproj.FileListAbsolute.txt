@@ -54,3 +54,6 @@ C:\Users\Namor is bae\Desktop\Business-Tour-Mod-External-2.0\obj\Debug\BusinessT
 C:\Users\Namor is bae\Desktop\Business-Tour-Mod-External-2.0\obj\Debug\BusinessTourHack.csproj.CopyComplete
 C:\Users\Namor is bae\Desktop\Business-Tour-Mod-External-2.0\obj\Debug\BusinessTourHack.exe
 C:\Users\Namor is bae\Desktop\Business-Tour-Mod-External-2.0\obj\Debug\BusinessTourHack.pdb
+C:\Users\Namor is bae\Desktop\code\Github Desktop\Business-Tour-Mod-External\bin\Debug\AutoUpdater.NET.dll
+C:\Users\Namor is bae\Desktop\code\Github Desktop\Business-Tour-Mod-External\bin\Debug\AutoUpdater.NET.pdb
+C:\Users\Namor is bae\Desktop\code\Github Desktop\Business-Tour-Mod-External\bin\Debug\AutoUpdater.NET.xml

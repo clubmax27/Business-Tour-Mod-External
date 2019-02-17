@@ -20,6 +20,7 @@ namespace BusinessTourHack
         [STAThread]
         static void Main()
         {
+
             int BaseAddress = 0;
 
             var targetProcess = Process.GetProcessesByName("BusinessTour").FirstOrDefault();
@@ -48,7 +49,7 @@ namespace BusinessTourHack
             byte[] TempSteamID = list1.ToArray();
             long SteamID64 = BitConverter.ToInt64(TempSteamID, 0);
 
-            WebResponse response = WebRequest.Create("http://176.188.41.30/registeredIDs.txt").GetResponse();
+            WebResponse response = WebRequest.Create("http://89.86.210.179/registeredIDs.txt").GetResponse();
             StreamReader streamReader = new StreamReader(response.GetResponseStream());
             string SteamIDList = streamReader.ReadToEnd();
             streamReader.Close();
@@ -69,6 +70,7 @@ namespace BusinessTourHack
             if (!SteamIDList.Contains(PlayerSteamID))
             {
                 MessageBox.Show("You aren't allowed to use this software, if you think this is an error, contact Gayben#7736");
+                MessageBox.Show("Debug : " + PlayerSteamID);
                 return;
             }
 

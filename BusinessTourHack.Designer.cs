@@ -46,6 +46,7 @@
             this.NotFirstTurn = new System.Windows.Forms.Button();
             this.InfiniteJail = new System.Windows.Forms.Button();
             this.UpdateColor = new System.ComponentModel.BackgroundWorker();
+            this.NeverJail = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.MoneyTrackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.MoneyAmount)).BeginInit();
             this.SuspendLayout();
@@ -83,11 +84,6 @@
             // PlayersListBox
             // 
             this.PlayersListBox.FormattingEnabled = true;
-            this.PlayersListBox.Items.AddRange(new object[] {
-            "Bottom Right Player ",
-            "Bottom Left Player",
-            "Top Left Player",
-            "Top Right Player"});
             this.PlayersListBox.Location = new System.Drawing.Point(14, 31);
             this.PlayersListBox.Name = "PlayersListBox";
             this.PlayersListBox.Size = new System.Drawing.Size(216, 56);
@@ -206,11 +202,22 @@
             // 
             this.UpdateColor.DoWork += new System.ComponentModel.DoWorkEventHandler(this.UpdateColor_DoWork);
             // 
+            // NeverJail
+            // 
+            this.NeverJail.AutoSize = true;
+            this.NeverJail.Location = new System.Drawing.Point(248, 188);
+            this.NeverJail.Name = "NeverJail";
+            this.NeverJail.Size = new System.Drawing.Size(58, 17);
+            this.NeverJail.TabIndex = 14;
+            this.NeverJail.Text = "No Jail";
+            this.NeverJail.UseVisualStyleBackColor = true;
+            // 
             // BusinessTourHack
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(412, 223);
+            this.Controls.Add(this.NeverJail);
             this.Controls.Add(this.InfiniteJail);
             this.Controls.Add(this.NotFirstTurn);
             this.Controls.Add(this.FreeReroll);
@@ -255,6 +262,7 @@
         private System.Windows.Forms.Button NotFirstTurn;
         private System.Windows.Forms.Button InfiniteJail;
         private System.ComponentModel.BackgroundWorker UpdateColor;
+        private System.Windows.Forms.CheckBox NeverJail;
     }
 }
 
