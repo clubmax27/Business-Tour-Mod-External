@@ -149,8 +149,8 @@ Special thanks to Spyder#3252 for helping me manipulating the memory", @"About t
         {
             while (true)
             {
-                {
-                    int Pointer = Memory.GetPointerAddress(_BaseAddress + 0x0117B30C, new[] { 0x10, 0xA8, 0x10, 0x54 });
+                { //Money Address
+                    int Pointer = Memory.GetPointerAddress(_BaseAddress + 0x012CC25C, new[] { 0x60, 0x54 });
                     int Money = Memory.ReadInteger(Pointer, 4);
                     int EncryptedMoney = Memory.ReadInteger(Pointer - 4, 4);
                     int EncryptingKey = Memory.ReadInteger(Pointer - 8, 4);
@@ -163,8 +163,8 @@ Special thanks to Spyder#3252 for helping me manipulating the memory", @"About t
                     }
                 }
                 
-                {
-                    int Pointer = Memory.GetPointerAddress(_BaseAddress + 0x01183070, new[] { 0x24, 0x40, 0xE0, 0x5C, 0x10 });
+                { //Bonus Address
+                    int Pointer = Memory.GetPointerAddress(_BaseAddress + 0x012C6090, new[] { 0x760, 0x5C, 0x0 });
                     int EncryptingKey = Memory.ReadInteger(Pointer, 4);
                     int EncryptedBonus = Memory.ReadInteger(Pointer + 4, 4);
                     int Bonus = Memory.ReadInteger(Pointer + 8, 4);
@@ -220,60 +220,60 @@ Special thanks to Spyder#3252 for helping me manipulating the memory", @"About t
                 {
                     if (FreePair.Checked)
                     {
-                        int EncryptingKey = Memory.ReadInteger(_BonusAddress + (OBSCURED_OBJECT_SIZE * 6), 4);
-                        Memory.WriteInteger(_BonusAddress + (OBSCURED_OBJECT_SIZE * 6) + 8, 0, 4); //Writing a 4 byte integer
-                        Memory.WriteInteger(_BonusAddress + (OBSCURED_OBJECT_SIZE * 6) + 4, 0 ^ EncryptingKey, 4); //Writing a 4 byte integer
+                        int EncryptingKey = Memory.ReadInteger(_BonusAddress + (OBSCURED_OBJECT_SIZE * 7), 4);
+                        Memory.WriteInteger(_BonusAddress + (OBSCURED_OBJECT_SIZE * 7) + 8, 0, 4); //Writing a 4 byte integer
+                        Memory.WriteInteger(_BonusAddress + (OBSCURED_OBJECT_SIZE * 7) + 4, 0 ^ EncryptingKey, 4); //Writing a 4 byte integer
                     }
                     else
                     {
-                        int EncryptingKey = Memory.ReadInteger(_BonusAddress + (OBSCURED_OBJECT_SIZE * 6), 4);
-                        Memory.WriteInteger(_BonusAddress + (OBSCURED_OBJECT_SIZE * 6) + 8, 2, 4); //Writing a 4 byte integer
-                        Memory.WriteInteger(_BonusAddress + (OBSCURED_OBJECT_SIZE * 6) + 4, 2 ^ EncryptingKey, 4); //Writing a 4 byte integer
+                        int EncryptingKey = Memory.ReadInteger(_BonusAddress + (OBSCURED_OBJECT_SIZE * 7), 4);
+                        Memory.WriteInteger(_BonusAddress + (OBSCURED_OBJECT_SIZE * 7) + 8, 2, 4); //Writing a 4 byte integer
+                        Memory.WriteInteger(_BonusAddress + (OBSCURED_OBJECT_SIZE * 7) + 4, 2 ^ EncryptingKey, 4); //Writing a 4 byte integer
                     }
                 }
                 
                 {
                     if (FreeDouble.Checked)
                     {
-                        int EncryptingKey = Memory.ReadInteger(_BonusAddress + (OBSCURED_OBJECT_SIZE * 6), 4);
-                        Memory.WriteInteger(_BonusAddress + (OBSCURED_OBJECT_SIZE * 7) + 8, 0, 4); //Writing a 4 byte integer
-                        Memory.WriteInteger(_BonusAddress + (OBSCURED_OBJECT_SIZE * 7) + 4, 0 ^ EncryptingKey, 4); //Writing a 4 byte integer
-                    }
-                    else
-                    {
-                        int EncryptingKey = Memory.ReadInteger(_BonusAddress + (OBSCURED_OBJECT_SIZE * 6), 4);
-                        Memory.WriteInteger(_BonusAddress + (OBSCURED_OBJECT_SIZE * 7) + 8, 2, 4); //Writing a 4 byte integer
-                        Memory.WriteInteger(_BonusAddress + (OBSCURED_OBJECT_SIZE * 7) + 4, 2 ^ EncryptingKey, 4); //Writing a 4 byte integer
-                    }
-                }
-
-                {
-                    if (FreeCard.Checked)
-                    {
-                        int EncryptingKey = Memory.ReadInteger(_BonusAddress + (OBSCURED_OBJECT_SIZE * 6), 4);
+                        int EncryptingKey = Memory.ReadInteger(_BonusAddress + (OBSCURED_OBJECT_SIZE * 8), 4);
                         Memory.WriteInteger(_BonusAddress + (OBSCURED_OBJECT_SIZE * 8) + 8, 0, 4); //Writing a 4 byte integer
                         Memory.WriteInteger(_BonusAddress + (OBSCURED_OBJECT_SIZE * 8) + 4, 0 ^ EncryptingKey, 4); //Writing a 4 byte integer
                     }
                     else
                     {
-                        int EncryptingKey = Memory.ReadInteger(_BonusAddress + (OBSCURED_OBJECT_SIZE * 6), 4);
+                        int EncryptingKey = Memory.ReadInteger(_BonusAddress + (OBSCURED_OBJECT_SIZE * 8), 4);
                         Memory.WriteInteger(_BonusAddress + (OBSCURED_OBJECT_SIZE * 8) + 8, 2, 4); //Writing a 4 byte integer
                         Memory.WriteInteger(_BonusAddress + (OBSCURED_OBJECT_SIZE * 8) + 4, 2 ^ EncryptingKey, 4); //Writing a 4 byte integer
                     }
                 }
 
                 {
-                   if (FreeReroll.Checked)
+                    if (FreeCard.Checked)
                     {
-                        int EncryptingKey = Memory.ReadInteger(_BonusAddress + (OBSCURED_OBJECT_SIZE * 6), 4);
+                        int EncryptingKey = Memory.ReadInteger(_BonusAddress + (OBSCURED_OBJECT_SIZE * 9), 4);
                         Memory.WriteInteger(_BonusAddress + (OBSCURED_OBJECT_SIZE * 9) + 8, 0, 4); //Writing a 4 byte integer
                         Memory.WriteInteger(_BonusAddress + (OBSCURED_OBJECT_SIZE * 9) + 4, 0 ^ EncryptingKey, 4); //Writing a 4 byte integer
                     }
                     else
                     {
-                        int EncryptingKey = Memory.ReadInteger(_BonusAddress + (OBSCURED_OBJECT_SIZE * 6), 4);
-                        Memory.WriteInteger(_BonusAddress + (OBSCURED_OBJECT_SIZE * 9) + 8, 3, 4); //Writing a 4 byte integer
-                        Memory.WriteInteger(_BonusAddress + (OBSCURED_OBJECT_SIZE * 9) + 4, 3 ^ EncryptingKey, 4); //Writing a 4 byte integer
+                        int EncryptingKey = Memory.ReadInteger(_BonusAddress + (OBSCURED_OBJECT_SIZE * 9), 4);
+                        Memory.WriteInteger(_BonusAddress + (OBSCURED_OBJECT_SIZE * 9) + 8, 2, 4); //Writing a 4 byte integer
+                        Memory.WriteInteger(_BonusAddress + (OBSCURED_OBJECT_SIZE * 9) + 4, 2 ^ EncryptingKey, 4); //Writing a 4 byte integer
+                    }
+                }
+
+                {
+                   if (FreeReroll.Checked)
+                    {
+                        int EncryptingKey = Memory.ReadInteger(_BonusAddress + (OBSCURED_OBJECT_SIZE * 10), 4);
+                        Memory.WriteInteger(_BonusAddress + (OBSCURED_OBJECT_SIZE * 10) + 8, 0, 4); //Writing a 4 byte integer
+                        Memory.WriteInteger(_BonusAddress + (OBSCURED_OBJECT_SIZE * 10) + 4, 0 ^ EncryptingKey, 4); //Writing a 4 byte integer
+                    }
+                    else
+                    {
+                        int EncryptingKey = Memory.ReadInteger(_BonusAddress + (OBSCURED_OBJECT_SIZE * 10), 4);
+                        Memory.WriteInteger(_BonusAddress + (OBSCURED_OBJECT_SIZE * 10) + 8, 3, 4); //Writing a 4 byte integer
+                        Memory.WriteInteger(_BonusAddress + (OBSCURED_OBJECT_SIZE * 10) + 4, 3 ^ EncryptingKey, 4); //Writing a 4 byte integer
                     }
                 }
                 

@@ -20,7 +20,6 @@ namespace BusinessTourHack
         [STAThread]
         static void Main()
         {
-
             int BaseAddress = 0;
 
             var targetProcess = Process.GetProcessesByName("BusinessTour").FirstOrDefault();
@@ -48,12 +47,21 @@ namespace BusinessTourHack
 
             byte[] TempSteamID = list1.ToArray();
             long SteamID64 = BitConverter.ToInt64(TempSteamID, 0);
+            string SteamIDList = string.Empty;
 
-            WebResponse response = WebRequest.Create("http://89.86.210.179/registeredIDs.txt").GetResponse();
-            StreamReader streamReader = new StreamReader(response.GetResponseStream());
-            string SteamIDList = streamReader.ReadToEnd();
-            streamReader.Close();
-            response.Close();
+            try
+            {
+                WebResponse response = WebRequest.Create("http://goguardian.ml/registeredIDs.txt").GetResponse();
+                StreamReader streamReader = new StreamReader(response.GetResponseStream());
+                SteamIDList = streamReader.ReadToEnd();
+                streamReader.Close();
+                response.Close();
+            }
+            catch (WebException ex)
+            {
+                MessageBox.Show("An error has occured while reaching the whitelist : " + ex.ToString());
+                return;
+            }
 
             string PlayerSteamID;
             using (MD5 md = MD5.Create())

@@ -91,7 +91,6 @@
       <DependentUpon>BusinessTourHack.cs</DependentUpon>
     </Compile>
     <Compile Include="Mem.cs" />
-    <Compile Include="Pattern.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="BusinessTourHack.resx">
