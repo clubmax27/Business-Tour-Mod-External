@@ -90,9 +90,15 @@
     <Compile Include="BusinessTourHack.Designer.cs">
       <DependentUpon>BusinessTourHack.cs</DependentUpon>
     </Compile>
+    <Compile Include="GUI.cs" />
+    <Compile Include="HotelsFirstTurn.cs" />
+    <Compile Include="UpdateValues.cs" />
     <Compile Include="Mem.cs" />
+    <Compile Include="MoneyHack.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SecurityChecks.cs" />
+    <Compile Include="Utils.cs" />
     <EmbeddedResource Include="BusinessTourHack.resx">
       <DependentUpon>BusinessTourHack.cs</DependentUpon>
     </EmbeddedResource>

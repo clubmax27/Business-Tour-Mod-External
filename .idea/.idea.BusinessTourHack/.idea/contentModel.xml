@@ -13,7 +13,10 @@
       <e p="BusinessTourHack.resx" t="Include" />
       <e p="BusinessTourHack.sln" t="IncludeFlat" />
       <e p="flutterfox_icon_by_razorphoenix_d6wp5g6_UYg_icon.ico" t="Include" />
+      <e p="GUI.cs" t="Include" />
+      <e p="HotelsFirstTurn.cs" t="Include" />
       <e p="Mem.cs" t="Include" />
+      <e p="MoneyHack.cs" t="Include" />
       <e p="obj" t="ExcludeRecursive" />
       <e p="packages" t="ExcludeRecursive" />
       <e p="packages.config" t="Include" />
@@ -25,6 +28,9 @@
         <e p="Settings.Designer.cs" t="Include" />
         <e p="Settings.settings" t="Include" />
       </e>
+      <e p="SecurityChecks.cs" t="Include" />
+      <e p="UpdateValues.cs" t="Include" />
+      <e p="Utils.cs" t="Include" />
     </e>
   </component>
 </project>
