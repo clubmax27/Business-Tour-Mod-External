@@ -3,7 +3,7 @@ using System.Text;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 
-namespace BusinessTourHack
+namespace BusinessTourMod
 {
     public class Memory
     {

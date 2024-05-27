@@ -4,15 +4,15 @@ using System.Linq;
 using System.Windows.Forms;
 using System.Diagnostics;
 
-namespace BusinessTourHack
+namespace BusinessTourMod
 {
-    public partial class BusinessTourHack
+    public partial class BusinessTourMod
     {
         private void CheckDebugger_DoWork(object sender, DoWorkEventArgs e)
         {
             while (true)
             {
-                string[] Processes = {"Medusa", "Relyze", "ODA", "Hiew", "decompiler", "Disassembler", "Hopper", "radare", "Debugger", "dbg", "IlSpy", "DnSpy", "Binary", "IDA", "ArtMoney", "scanmem", "GameConqueror", "Cheat", "Squalr", "iHaxGamez", "Bit Slicer", "PINCE", "GameGuardian", "Hacking"};
+                string[] Processes = {"Medusa", "Relyze", "ODA", "Hiew", "decompiler", "Disassembler", "Hopper", "radare", "Debugger", "dbg", "IlSpy", "DnSpy", "Binary", "IDA", "ArtMoney", "scanmem", "GameConqueror", "Cheat", "Squalr", "iHaxGamez", "Bit Slicer", "PINCE", "GameGuardian", "moding"};
                 
                 foreach (Process P in Process.GetProcesses())
                 {
@@ -23,9 +23,9 @@ namespace BusinessTourHack
                             continue;
                         }
 
-                        foreach (string HackSoftware in Processes)
+                        foreach (string modSoftware in Processes)
                         {
-                            if (P.MainWindowTitle.ToUpper().Contains(HackSoftware.ToUpper()))
+                            if (P.MainWindowTitle.ToUpper().Contains(modSoftware.ToUpper()))
                             {
                                 Application.Exit();
                             }

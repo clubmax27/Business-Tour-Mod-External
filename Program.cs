@@ -9,7 +9,7 @@ using System.IO;
 using System.Net;
 using System.Security.Cryptography;
 
-namespace BusinessTourHack
+namespace BusinessTourMod
 {
     class Program
     {
@@ -84,7 +84,7 @@ namespace BusinessTourHack
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new BusinessTourHack());
+            Application.Run(new BusinessTourMod());
         }
     }
 }

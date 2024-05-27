@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace BusinessTourHack.Properties {
+namespace BusinessTourMod.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]

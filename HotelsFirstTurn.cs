@@ -4,9 +4,9 @@ using System.Linq;
 using System.Windows.Forms;
 using System.Diagnostics;
 
-namespace BusinessTourHack
+namespace BusinessTourMod
 {
-    public partial class BusinessTourHack
+    public partial class BusinessTourMod
     {
         private void NotFirstTurn_Click(object sender, EventArgs e)
         {

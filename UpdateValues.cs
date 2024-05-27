@@ -4,9 +4,9 @@ using System.Linq;
 using System.Windows.Forms;
 using System.Diagnostics;
 
-namespace BusinessTourHack
+namespace BusinessTourMod
 {
-    public partial class BusinessTourHack
+    public partial class BusinessTourMod
     {
         private void UpdateAddress_DoWork(object sender, DoWorkEventArgs e)
         {

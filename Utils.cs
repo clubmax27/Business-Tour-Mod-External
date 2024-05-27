@@ -4,9 +4,9 @@ using System.Linq;
 using System.Windows.Forms;
 using System.Diagnostics;
 
-namespace BusinessTourHack
+namespace BusinessTourMod
 {
-    public partial class BusinessTourHack : Form
+    public partial class BusinessTourMod : Form
     {
         private void UpdateColor_DoWork(object sender, DoWorkEventArgs e)
         {
